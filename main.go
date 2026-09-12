@@ -44,7 +44,7 @@ func main () {
 		Addr: ":" + portString,
 	}
 
-	log.Printf("Server starting on point %v" , portString)
+	log.Printf("Server starting on port %v" , portString)
 
 	err := srv.ListenAndServe()
 
