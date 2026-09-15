@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-
-	"github.com/NifemiSoneye/rssagg/internal/auth"
 	"github.com/NifemiSoneye/rssagg/internal/database"
 	"github.com/google/uuid"
 )
@@ -35,13 +33,7 @@ func (apiCfg *apiConfig)handlerCreateUser (w http.ResponseWriter , r *http.Reque
 	respondWithJSON(w , 201 , databaseUserToUser(user))
 }
 
-func (apiCfg *apiConfig)handlerGetUser (w http.ResponseWriter , r *http.Request) {
-	apiKey , err := auth.GetApiKey(r.Header)
-
-	if err != nil {
-		respondWithError(w , 403 , fmt.Sprintf("Auth error: %v" , err))
-		return
-	}
-
-	apiCfg.DB.GetUserByApiKey(r.Context() , apiKey)
+func (apiCfg *apiConfig)handlerGetUser (w http.ResponseWriter , r *http.Request , user database.User) {
+	
+	respondWithJSON(w ,200 , databaseUserToUser(user))
 }
